@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.techacademy.entity.User;
 
 @SpringBootTest
@@ -72,14 +73,16 @@ class UserControllerTest {
 		
 		//User user = (User)result.getModelAndView().getModel().get("userlist");
 		List<User> userList = (List<User>)result.getModelAndView().getModel().get("userlist");
-
-		
-		assertEquals(userList.get(0), 1);
-        assertEquals(userList.get(0), "キラメキ太郎");
-        assertEquals(userList.get(1), 2);
-        assertEquals(userList.get(1), "キラメキ次郎");
-        assertEquals(userList.get(2), 3);
-        assertEquals(userList.get(2), "キラメキ花子"); 
+		/*List<User> userList = new ArrayList<User>();
+		userList.add((List<User>)result.getModelAndView().getModel().get("userlist"));*/
+		//User user1 = userList.get(0);
+		//System.out.println(user1);
+		assertEquals(userList.get(0).getId(), 1); //こんな書き方あるなんかシリーズ
+        assertEquals(userList.get(0).getName(), "キラメキ太郎");
+        assertEquals(userList.get(1).getId(), 2);
+        assertEquals(userList.get(1).getName(), "キラメキ次郎");
+        assertEquals(userList.get(2).getId(), 3);
+        assertEquals(userList.get(2).getName(), "キラメキ花子"); 
         
     }
 }
